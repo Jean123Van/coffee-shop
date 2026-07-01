@@ -1,5 +1,14 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home.tsx';
+
 function App() {
-    return <h1>coffee shop web app</h1>;
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
