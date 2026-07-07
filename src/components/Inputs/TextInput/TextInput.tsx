@@ -1,12 +1,26 @@
-import { LuUser } from 'react-icons/lu';
+import { LuUser, LuMail, LuLock } from 'react-icons/lu';
 import { COLORS } from '../../../theme/colors';
 
+type TextInputType = 'text' | 'email' | 'password';
 interface TextInputProps {
     label?: string;
     placeholder?: string;
+    type?: TextInputType;
 }
 
-function TextInput({ label = '', placeholder = '' }: TextInputProps) {
+const icons = {
+    text: LuUser,
+    email: LuMail,
+    password: LuLock,
+};
+
+function TextInput({
+    label = '',
+    placeholder = '',
+    type = 'text',
+}: TextInputProps) {
+    const Icon = icons[type];
+
     return (
         <div
             style={{
@@ -30,14 +44,19 @@ function TextInput({ label = '', placeholder = '' }: TextInputProps) {
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    padding: '7px',
+                    padding: '9px',
                     gap: '10px',
                 }}
             >
-                <LuUser />
+                <Icon />
                 <input
                     placeholder={placeholder}
-                    style={{ border: 'none', color: 'grey', outline: 'none' }}
+                    style={{
+                        border: 'none',
+                        color: 'grey',
+                        outline: 'none',
+                        width: '100%',
+                    }}
                 />
             </div>
         </div>

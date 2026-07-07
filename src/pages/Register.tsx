@@ -3,6 +3,10 @@ import TextInput from '../components/Inputs/TextInput/TextInput';
 import { COLORS } from '../theme/colors';
 
 function Register() {
+    function onSubmitHandler(e) {
+        e.preventDefault();
+    }
+
     return (
         <div
             style={{
@@ -62,7 +66,35 @@ function Register() {
             >
                 Start finding and reviewing cafes today.
             </h4>
-            <TextInput label="First name" placeholder="Enter your first name" />
+            <form
+                onSubmit={onSubmitHandler}
+                style={{
+                    width: '100%',
+                    maxWidth: '300px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px',
+                }}
+            >
+                <TextInput
+                    label="First name"
+                    placeholder="Enter your first name"
+                />
+                <TextInput
+                    label="Last name"
+                    placeholder="Enter your last name"
+                />
+                <TextInput
+                    label="Email"
+                    placeholder="Enter your email"
+                    type={'email'}
+                />
+                <TextInput
+                    label="Password"
+                    placeholder="Create a password"
+                    type={'password'}
+                />
+            </form>
         </div>
     );
 }
