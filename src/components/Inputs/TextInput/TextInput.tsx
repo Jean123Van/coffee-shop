@@ -53,7 +53,11 @@ function TextInput({
             >
                 <Icon />
                 <input
-                    type={showPassword ? 'text' : 'password'}
+                    type={
+                        type === 'password' && !showPassword
+                            ? 'password'
+                            : 'text'
+                    }
                     placeholder={placeholder}
                     style={{
                         border: 'none',
