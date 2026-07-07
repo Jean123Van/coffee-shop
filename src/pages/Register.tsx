@@ -1,6 +1,7 @@
 import logo from '../assets/coffee.png';
 import TextInput from '../components/Inputs/TextInput/TextInput';
 import { COLORS } from '../theme/colors';
+import { Link } from 'react-router-dom';
 
 function Register() {
     function onSubmitHandler(e) {
@@ -94,7 +95,71 @@ function Register() {
                     placeholder="Create a password"
                     type={'password'}
                 />
+                <button
+                    style={{
+                        backgroundColor: COLORS.milkChocolate,
+                        border: 'none',
+                        color: 'white',
+                        padding: '15px',
+                        borderRadius: '4px',
+                        marginTop: '20px',
+                    }}
+                >
+                    Create Account
+                </button>
             </form>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    width: '100%',
+                    maxWidth: '300px',
+                    gap: '5px',
+                    marginTop: '10px',
+                    marginBottom: '10px',
+                }}
+            >
+                <hr
+                    style={{
+                        flex: '1',
+                        border: 'none',
+                        borderTop: `1px solid ${COLORS.lightGray}`,
+                    }}
+                />
+                <span
+                    style={{
+                        color: 'grey',
+                        fontSize: '10px',
+                    }}
+                >
+                    OR
+                </span>
+                <hr
+                    style={{
+                        flex: '1',
+                        border: 'none',
+                        borderTop: `1px solid ${COLORS.lightGray}`,
+                    }}
+                />
+            </div>
+            <span
+                style={{
+                    fontSize: '12px',
+                }}
+            >
+                Already have an account?{' '}
+                <Link
+                    to={'/login'}
+                    style={{
+                        fontWeight: 'bold',
+                        color: COLORS.milkChocolate,
+                        textDecoration: 'none',
+                    }}
+                >
+                    Sign in
+                </Link>
+            </span>
         </div>
     );
 }
