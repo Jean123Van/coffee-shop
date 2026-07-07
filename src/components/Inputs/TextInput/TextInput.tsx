@@ -1,5 +1,6 @@
-import { LuUser, LuMail, LuLock } from 'react-icons/lu';
+import { LuUser, LuMail, LuLock, LuEye, LuEyeOff } from 'react-icons/lu';
 import { COLORS } from '../../../theme/colors';
+import { useState } from 'react';
 
 type TextInputType = 'text' | 'email' | 'password';
 interface TextInputProps {
@@ -20,6 +21,8 @@ function TextInput({
     type = 'text',
 }: TextInputProps) {
     const Icon = icons[type];
+
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <div
@@ -50,6 +53,7 @@ function TextInput({
             >
                 <Icon />
                 <input
+                    type={showPassword ? 'text' : 'password'}
                     placeholder={placeholder}
                     style={{
                         border: 'none',
@@ -58,6 +62,20 @@ function TextInput({
                         width: '100%',
                     }}
                 />
+                {type === 'password' && (
+                    <button
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        style={{
+                            border: 'transparent',
+                            padding: '0',
+                            backgroundColor: 'transparent',
+                            display: 'flex',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        {showPassword ? <LuEyeOff /> : <LuEye />}
+                    </button>
+                )}
             </div>
         </div>
     );
