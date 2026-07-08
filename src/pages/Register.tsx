@@ -9,9 +9,9 @@ function Register() {
     }
 
     return (
-        <div
+        <main
             style={{
-                height: '100vh',
+                minHeight: '100vh',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -172,7 +172,7 @@ function Register() {
                     </Link>
                 </span>
             </div>
-        </div>
+        </main>
     );
 }
 

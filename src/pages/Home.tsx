@@ -1,5 +1,12 @@
 function Home() {
-    return <h2>Home placeholder</h2>;
+    return (
+        <main>
+            placeholder home
+            <div>
+                <div></div>
+            </div>
+        </main>
+    );
 }
 
 export default Home;
