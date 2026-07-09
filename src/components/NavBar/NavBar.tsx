@@ -3,11 +3,7 @@ import logo from '../../assets/coffee.png';
 
 function NavBar() {
     return (
-        <main
-            style={{
-                minHeight: '100vh',
-            }}
-        >
+        <>
             <header
                 style={{
                     backgroundColor: 'white',
@@ -16,6 +12,7 @@ function NavBar() {
                     display: 'flex',
                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.15)',
                     justifyContent: 'center',
+                    position: 'sticky',
                 }}
             >
                 <div
@@ -104,10 +101,25 @@ function NavBar() {
                 </div>
             </header>
 
-            <section>
-                <Outlet />
-            </section>
-        </main>
+            <main
+                style={{
+                    paddingLeft: '20px',
+                    paddingRight: '20px',
+
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}
+            >
+                <div
+                    style={{
+                        width: '100%',
+                        maxWidth: '1100px',
+                    }}
+                >
+                    <Outlet />
+                </div>
+            </main>
+        </>
     );
 }
 
