@@ -1,7 +1,20 @@
 import cafeImage from '../assets/images/cafe.webp';
-import { LuSearch, LuStar } from 'react-icons/lu';
+import {
+    LuSearch,
+    LuStar,
+    LuDoorOpen,
+    LuMonitor,
+    LuWifi,
+    LuPlug,
+    LuCar,
+    LuVolumeX,
+    LuTrees,
+    LuSandwich,
+    LuCakeSlice,
+} from 'react-icons/lu';
 import PrimaryBtn from '../components/Buttons/PrimaryBtn/PrimaryBtn';
 import { COLORS } from '../theme/colors';
+import SectionHeader from '../components/Headers/SectionHeader/SectionHeader';
 
 function Home() {
     const coffeeShops = [
@@ -52,12 +65,50 @@ function Home() {
         },
     ];
 
+    const tags = [
+        {
+            name: 'Open now',
+            icon: LuDoorOpen,
+        },
+        {
+            name: 'Good for work',
+            icon: LuMonitor,
+        },
+        {
+            name: 'Has outlets',
+            icon: LuPlug,
+        },
+        {
+            name: 'Fast wifi',
+            icon: LuWifi,
+        },
+        {
+            name: 'Quiet',
+            icon: LuVolumeX,
+        },
+        {
+            name: 'Outdoor seats',
+            icon: LuTrees,
+        },
+        {
+            name: 'Spacious Parking',
+            icon: LuCar,
+        },
+        {
+            name: 'Meals available',
+            icon: LuSandwich,
+        },
+        {
+            name: 'Great Pastries',
+            icon: LuCakeSlice,
+        },
+    ];
+
     return (
         <section
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '10px',
             }}
         >
             <section
@@ -142,153 +193,186 @@ function Home() {
                 </div>
             </section>
 
-            <section
+            <div
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
+                    marginTop: '5px',
                     padding: '15px',
+                    gap: '15px',
                 }}
             >
-                <div
+                <section
                     style={{
                         display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginBottom: '10px',
+                        flexDirection: 'column',
                     }}
                 >
-                    <h2
+                    <SectionHeader
+                        title="Top rated coffee shops"
+                        onSeeAll={() => {}}
+                    />
+                    <div
                         style={{
-                            fontSize: '18px',
-                            fontWeight: 'normal',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '10px',
+                            overflow: 'scroll',
+                            padding: '2px',
                         }}
                     >
-                        Top rated coffee shops
-                    </h2>
-                    <button
-                        style={{
-                            border: 'none',
-                            backgroundColor: 'transparent',
-                            color: COLORS.brown,
-                            cursor: 'pointer',
-                            fontSize: '13px',
-                        }}
-                    >
-                        See all
-                    </button>
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: '10px',
-                        overflow: 'scroll',
-                        padding: '2px',
-                    }}
-                >
-                    {coffeeShops.map((coffeeShop) => (
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                boxShadow: '0 0 5px rgba(109, 76, 65, 0.15)',
-                                borderRadius: '8px',
-                                flexShrink: 0,
-                                width: '220px',
-                                height: '260px',
-                                overflow: 'hidden',
-                                position: 'relative',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    position: 'absolute',
-                                    top: '8px',
-                                    right: '8px',
-                                    backgroundColor: 'rgba(0,0,0, 0.8)',
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    padding: '3px 6px',
-                                    borderRadius: '5px',
-                                    gap: '5px',
-                                }}
-                            >
-                                <LuStar size={12} color="gold" fill="gold" />
-                                <span
-                                    style={{
-                                        color: 'white',
-                                        fontSize: '12px',
-                                    }}
-                                >
-                                    {coffeeShop.rating}
-                                </span>
-                            </div>
-                            <img
-                                src={coffeeShop.thumbnail}
-                                style={{ objectFit: 'cover' }}
-                                height={150}
-                            />
+                        {coffeeShops.map((coffeeShop) => (
                             <div
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    height: '100%',
-                                    padding: '10px',
-                                    justifyContent: 'space-between',
+                                    boxShadow:
+                                        '0 0 5px rgba(109, 76, 65, 0.15)',
+                                    borderRadius: '8px',
+                                    flexShrink: 0,
+                                    width: '220px',
+                                    height: '260px',
+                                    overflow: 'hidden',
+                                    position: 'relative',
                                 }}
                             >
-                                <span
+                                <div
                                     style={{
-                                        fontSize: '15px',
-                                        fontWeight: 'bold',
+                                        position: 'absolute',
+                                        top: '8px',
+                                        right: '8px',
+                                        backgroundColor: 'rgba(0,0,0, 0.8)',
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        padding: '3px 6px',
+                                        borderRadius: '5px',
+                                        gap: '5px',
                                     }}
                                 >
-                                    {coffeeShop.name}
-                                </span>
-                                <span
-                                    style={{
-                                        color: 'grey',
-                                        fontSize: '12px',
-                                    }}
-                                >
-                                    {coffeeShop.location}
-                                </span>
+                                    <LuStar
+                                        size={12}
+                                        color="gold"
+                                        fill="gold"
+                                    />
+                                    <span
+                                        style={{
+                                            color: 'white',
+                                            fontSize: '12px',
+                                        }}
+                                    >
+                                        {coffeeShop.rating}
+                                    </span>
+                                </div>
+                                <img
+                                    src={coffeeShop.thumbnail}
+                                    style={{ objectFit: 'cover' }}
+                                    height={150}
+                                />
                                 <div
                                     style={{
                                         display: 'flex',
-                                        flexDirection: 'row',
-                                        gap: '2px',
+                                        flexDirection: 'column',
+                                        height: '100%',
+                                        padding: '10px',
+                                        justifyContent: 'space-between',
                                     }}
                                 >
-                                    {coffeeShop.tags.map((tag) => (
-                                        <span
-                                            style={{
-                                                backgroundColor:
-                                                    COLORS.warmBrown,
-                                                fontSize: '11px',
-                                                color: COLORS.brown,
-                                                padding: '2px 4px',
-                                                borderRadius: '5px',
-                                            }}
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
+                                    <span
+                                        style={{
+                                            fontSize: '15px',
+                                            fontWeight: 'bold',
+                                        }}
+                                    >
+                                        {coffeeShop.name}
+                                    </span>
+                                    <span
+                                        style={{
+                                            color: 'grey',
+                                            fontSize: '12px',
+                                        }}
+                                    >
+                                        {coffeeShop.location}
+                                    </span>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            gap: '2px',
+                                        }}
+                                    >
+                                        {coffeeShop.tags.map((tag) => (
+                                            <span
+                                                style={{
+                                                    backgroundColor:
+                                                        COLORS.warmBrown,
+                                                    fontSize: '11px',
+                                                    color: COLORS.brown,
+                                                    padding: '2px 4px',
+                                                    borderRadius: '5px',
+                                                }}
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <span
+                                        style={{
+                                            fontSize: '11px',
+                                            color: 'grey',
+                                        }}
+                                    >
+                                        {coffeeShop.totalReviews} reviews
+                                    </span>
                                 </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                <section
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                    }}
+                >
+                    <SectionHeader title="Explore by tags" />
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '10px',
+                            overflow: 'scroll',
+                            padding: '2px',
+                        }}
+                    >
+                        {tags.map((tag) => (
+                            <div
+                                style={{
+                                    boxShadow:
+                                        '0 0 5px rgba(109, 76, 65, 0.15)',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    padding: '10px 15px',
+                                    borderRadius: '7px',
+                                    gap: '10px',
+                                    alignItems: 'center',
+                                    minWidth: '80px',
+                                }}
+                            >
+                                <tag.icon color={COLORS.brown} size={22} />
                                 <span
                                     style={{
-                                        fontSize: '11px',
-                                        color: 'grey',
+                                        fontSize: '12px',
                                     }}
                                 >
-                                    {coffeeShop.totalReviews} reviews
+                                    {tag.name}
                                 </span>
                             </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                        ))}
+                    </div>
+                </section>
+            </div>
         </section>
     );
 }
