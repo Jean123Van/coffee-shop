@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import logo from '../../assets/coffee.png';
+import PrimaryBtn from '../Buttons/PrimaryBtn/PrimaryBtn';
 
 function NavBar() {
     return (
@@ -71,32 +72,8 @@ function NavBar() {
                             gap: '2px',
                         }}
                     >
-                        <button
-                            style={{
-                                backgroundColor: 'white',
-                                border: 'none',
-                                borderRadius: '6px',
-                                padding: '7px 10px 7px 10px',
-                                color: 'black',
-                                fontWeight: 'bold',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            Log in
-                        </button>
-                        <button
-                            style={{
-                                backgroundColor: 'black',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '6px',
-                                padding: '7px 10px 7px 10px',
-                                cursor: 'pointer',
-                                fontWeight: 'bold',
-                            }}
-                        >
-                            Sign up
-                        </button>
+                        <PrimaryBtn variant={'light'}>Log in</PrimaryBtn>
+                        <PrimaryBtn>Sign up</PrimaryBtn>
                     </div>
                 </div>
             </header>
@@ -105,7 +82,6 @@ function NavBar() {
                 style={{
                     paddingLeft: '20px',
                     paddingRight: '20px',
-
                     display: 'flex',
                     justifyContent: 'center',
                 }}

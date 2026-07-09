@@ -1,9 +1,11 @@
 import cafeImage from '../assets/images/cafe.webp';
 import { LuSearch } from 'react-icons/lu';
+import PrimaryBtn from '../components/Buttons/PrimaryBtn/PrimaryBtn';
+import { COLORS } from '../theme/colors';
 
 function Home() {
     return (
-        <div
+        <section
             style={{
                 backgroundImage: `linear-gradient(
                     to right,
@@ -27,8 +29,6 @@ function Home() {
                     color: 'white',
                     fontWeight: 'normal',
                     fontSize: '40px',
-                    // border: '1px solid white',
-
                     marginBottom: '20px',
                 }}
             >
@@ -40,6 +40,7 @@ function Home() {
                     fontWeight: 'normal',
                     fontSize: '16px',
                     lineHeight: '22px',
+                    marginBottom: '30px',
                 }}
             >
                 Real experiences from real people. <br /> Find your next
@@ -48,14 +49,43 @@ function Home() {
             <div
                 style={{
                     backgroundColor: 'white',
+                    padding: '10px',
+                    width: '100%',
+                    maxWidth: '700px',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: '12px',
                 }}
             >
-                <LuSearch />
-                <input />
-                {/* Use created reusable button component */}
-                <button>Search</button>
+                <LuSearch
+                    color="grey"
+                    size={20}
+                    style={{
+                        marginLeft: '10px',
+                    }}
+                />
+                <input
+                    placeholder="Search coffee shops..."
+                    style={{
+                        width: '100%',
+                        border: 'none',
+                        color: 'grey',
+                        outline: 'none',
+                        fontSize: '14px',
+                    }}
+                />
+                <PrimaryBtn
+                    style={{
+                        padding: '10px 15px 10px 15px',
+                        backgroundColor: COLORS.brown,
+                    }}
+                >
+                    Search
+                </PrimaryBtn>
             </div>
-        </div>
+        </section>
     );
 }
 
