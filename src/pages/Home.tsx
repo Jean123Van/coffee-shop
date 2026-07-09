@@ -1,5 +1,5 @@
 import cafeImage from '../assets/images/cafe.webp';
-import { LuSearch } from 'react-icons/lu';
+import { LuSearch, LuStar } from 'react-icons/lu';
 import PrimaryBtn from '../components/Buttons/PrimaryBtn/PrimaryBtn';
 import { COLORS } from '../theme/colors';
 
@@ -197,8 +197,33 @@ function Home() {
                                 width: '220px',
                                 height: '260px',
                                 overflow: 'hidden',
+                                position: 'relative',
                             }}
                         >
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: '8px',
+                                    right: '8px',
+                                    backgroundColor: 'rgba(0,0,0, 0.8)',
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    padding: '3px 6px',
+                                    borderRadius: '5px',
+                                    gap: '5px',
+                                }}
+                            >
+                                <LuStar size={12} color="gold" fill="gold" />
+                                <span
+                                    style={{
+                                        color: 'white',
+                                        fontSize: '12px',
+                                    }}
+                                >
+                                    {coffeeShop.rating}
+                                </span>
+                            </div>
                             <img
                                 src={coffeeShop.thumbnail}
                                 style={{ objectFit: 'cover' }}
