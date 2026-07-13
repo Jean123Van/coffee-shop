@@ -21,7 +21,6 @@ function BannerWithSearch() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                marginTop: '20px',
             }}
         >
             <h1

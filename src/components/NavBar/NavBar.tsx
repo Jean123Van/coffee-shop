@@ -90,6 +90,7 @@ function NavBar() {
                     style={{
                         width: '100%',
                         maxWidth: '1100px',
+                        paddingTop: '20px',
                     }}
                 >
                     <Outlet />

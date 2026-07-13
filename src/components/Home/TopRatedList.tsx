@@ -1,6 +1,7 @@
 import { LuStar } from 'react-icons/lu';
 import SectionHeader from '../Headers/SectionHeader/SectionHeader';
 import { COLORS } from '../../theme/colors';
+import { useNavigate } from 'react-router-dom';
 
 function TopRatedList() {
     const coffeeShops = [
@@ -51,6 +52,8 @@ function TopRatedList() {
         },
     ];
 
+    const navigate = useNavigate();
+
     return (
         <section
             style={{
@@ -80,6 +83,9 @@ function TopRatedList() {
                             height: '260px',
                             overflow: 'hidden',
                             position: 'relative',
+                        }}
+                        onClick={() => {
+                            navigate('/cafe/123');
                         }}
                     >
                         <div
