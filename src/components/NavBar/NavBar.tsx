@@ -91,6 +91,7 @@ function NavBar() {
                         width: '100%',
                         maxWidth: '1100px',
                         paddingTop: '20px',
+                        paddingBottom: '20px',
                     }}
                 >
                     <Outlet />
