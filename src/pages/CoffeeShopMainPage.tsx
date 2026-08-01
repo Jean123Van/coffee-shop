@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import ImageBanner from '../components/CoffeeShopMainPage/ImageBanner';
 import TitleHeader from '../components/CoffeeShopMainPage/TitleHeader';
 import Ratings from '../components/CoffeeShopMainPage/Ratings';
+import Highlights from '../components/CoffeeShopMainPage/Highlights';
 
 function CoffeeShopMainPage() {
     const data = useMemo(
@@ -51,6 +52,7 @@ function CoffeeShopMainPage() {
                 name={data.name}
             />
             <Ratings ratings={data.ratings} totalRating={totalRating} />
+            <Highlights />
         </>
     );
 }

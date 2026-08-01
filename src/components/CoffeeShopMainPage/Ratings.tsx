@@ -1,6 +1,7 @@
 import { COLORS } from '../../theme/colors';
 import { LuStar } from 'react-icons/lu';
 import PrimaryBtn from '../Buttons/PrimaryBtn/PrimaryBtn';
+import MainPageSectionContainer from '../Containers/MainPageSectionContainer/MainPageSectionContainer';
 
 interface RatingsProps {
     totalRating: string;
@@ -9,21 +10,7 @@ interface RatingsProps {
 
 function Ratings({ ratings, totalRating }: RatingsProps) {
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <span
-                style={{
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    marginBottom: '5px',
-                }}
-            >
-                Ratings
-            </span>
+        <MainPageSectionContainer title="Ratings">
             <div
                 style={{
                     display: 'flex',
@@ -162,7 +149,7 @@ function Ratings({ ratings, totalRating }: RatingsProps) {
                     </div>
                 </div>
             </div>
-        </div>
+        </MainPageSectionContainer>
     );
 }
 
