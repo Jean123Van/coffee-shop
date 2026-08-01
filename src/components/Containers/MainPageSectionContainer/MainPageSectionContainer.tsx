@@ -1,17 +1,21 @@
 interface MainPageSectionContainerProps {
     title: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
+    style?: React.CSSProperties;
 }
 
 function MainPageSectionContainer({
     title,
     children,
+    style,
 }: MainPageSectionContainerProps) {
     return (
         <div
             style={{
                 display: 'flex',
                 flexDirection: 'column',
+
+                ...style,
             }}
         >
             <span

@@ -1,4 +1,4 @@
-import { COLORS } from '../../theme/colors';
+import HighlightsTile from '../Containers/HighlightsTile/HighlightsTile';
 import SectionHeader from '../Headers/SectionHeader/SectionHeader';
 import {
     LuDoorOpen,
@@ -70,27 +70,7 @@ function ExploreByTagsList() {
                 }}
             >
                 {tags.map((tag) => (
-                    <div
-                        style={{
-                            boxShadow: '0 0 5px rgba(109, 76, 65, 0.15)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            padding: '10px 15px',
-                            borderRadius: '7px',
-                            gap: '10px',
-                            alignItems: 'center',
-                            minWidth: '80px',
-                        }}
-                    >
-                        <tag.icon color={COLORS.brown} size={22} />
-                        <span
-                            style={{
-                                fontSize: '12px',
-                            }}
-                        >
-                            {tag.name}
-                        </span>
-                    </div>
+                    <HighlightsTile icon={tag.icon} name={tag.name} />
                 ))}
             </div>
         </section>

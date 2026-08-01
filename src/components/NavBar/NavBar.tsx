@@ -1,8 +1,10 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../assets/coffee.png';
 import PrimaryBtn from '../Buttons/PrimaryBtn/PrimaryBtn';
 
 function NavBar() {
+    const navigate = useNavigate();
+
     return (
         <>
             <header
@@ -51,6 +53,9 @@ function NavBar() {
                     </div>
                     <div>
                         <button
+                            onClick={() => {
+                                navigate('/');
+                            }}
                             style={{
                                 border: 'none',
                                 backgroundColor: 'transparent',
