@@ -3,6 +3,7 @@ import ImageBanner from '../components/CoffeeShopMainPage/ImageBanner';
 import TitleHeader from '../components/CoffeeShopMainPage/TitleHeader';
 import Ratings from '../components/CoffeeShopMainPage/Ratings';
 import Highlights from '../components/CoffeeShopMainPage/Highlights';
+import About from '../components/CoffeeShopMainPage/About';
 
 function CoffeeShopMainPage() {
     const data = useMemo(
@@ -53,6 +54,7 @@ function CoffeeShopMainPage() {
             />
             <Ratings ratings={data.ratings} totalRating={totalRating} />
             <Highlights />
+            <About />
         </>
     );
 }
