@@ -85,8 +85,21 @@ function NavBar() {
                             gap: '2px',
                         }}
                     >
-                        <PrimaryBtn variant={'light'}>Log in</PrimaryBtn>
-                        <PrimaryBtn>Sign up</PrimaryBtn>
+                        <PrimaryBtn
+                            variant={'light'}
+                            onClick={() => {
+                                navigate('/login');
+                            }}
+                        >
+                            Log in
+                        </PrimaryBtn>
+                        <PrimaryBtn
+                            onClick={() => {
+                                navigate('/register');
+                            }}
+                        >
+                            Sign up
+                        </PrimaryBtn>
                     </div>
                 </div>
             </header>
