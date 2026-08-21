@@ -27,12 +27,19 @@ function NavBar() {
                         maxWidth: '1100px',
                     }}
                 >
-                    <div
+                    <button
                         style={{
                             display: 'flex',
                             flexDirection: 'row',
                             alignItems: 'center',
                             gap: '5px',
+                            border: 'none',
+                            backgroundColor: 'transparent',
+                            padding: '0',
+                            cursor: 'pointer',
+                        }}
+                        onClick={() => {
+                            navigate('/');
                         }}
                     >
                         <img
@@ -46,11 +53,12 @@ function NavBar() {
                                 fontWeight: 'bold',
                                 color: 'black',
                                 paddingTop: '5px',
+                                fontSize: '16px',
                             }}
                         >
                             CoffeeNote
                         </span>
-                    </div>
+                    </button>
                     <div>
                         <button
                             onClick={() => {
