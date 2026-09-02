@@ -9,6 +9,7 @@ interface TextInputProps {
   type?: TextInputType;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
+  errorMsg?: string;
 }
 
 const icons = {
@@ -23,6 +24,7 @@ function TextInput({
   type = 'text',
   onChange = () => {},
   value,
+  errorMsg,
 }: TextInputProps) {
   const Icon = icons[type];
 
@@ -46,7 +48,7 @@ function TextInput({
       </label>
       <div
         style={{
-          border: `1px solid ${COLORS.lightGray}`,
+          border: errorMsg ? `1px solid red` : `1px solid ${COLORS.lightGray}`,
           borderRadius: '4px',
           display: 'flex',
           flexDirection: 'row',
@@ -83,6 +85,9 @@ function TextInput({
           </button>
         )}
       </div>
+      {errorMsg && (
+        <span style={{ color: 'red', fontSize: '10px' }}>{errorMsg}</span>
+      )}
     </div>
   );
 }

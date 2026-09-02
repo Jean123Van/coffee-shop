@@ -2,10 +2,12 @@ import TextInput from '../components/Inputs/TextInput/TextInput';
 import RegisterLayoutContainer from '../components/Register/RegisterLayoutContainer';
 import { COLORS } from '../theme/colors';
 import { useForm, Controller } from 'react-hook-form';
-import type { RegisterInput } from '@/types/register';
+import { registerSchema, type RegisterInput } from '@/schemas/register.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 function Register() {
   const { control, handleSubmit } = useForm<RegisterInput>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -32,46 +34,54 @@ function Register() {
         <Controller
           control={control}
           name="firstName"
-          render={({ field }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextInput
               label="First name"
               placeholder="Enter your first name"
-              {...field}
+              onChange={onChange}
+              value={value}
+              errorMsg={error?.message}
             />
           )}
         />
         <Controller
           control={control}
           name="lastName"
-          render={({ field }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextInput
               label="Last name"
               placeholder="Enter your last name"
-              {...field}
+              onChange={onChange}
+              value={value}
+              errorMsg={error?.message}
             />
           )}
         />
         <Controller
           control={control}
           name="email"
-          render={({ field }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextInput
               label="Email"
               placeholder="Enter your email"
               type={'email'}
-              {...field}
+              onChange={onChange}
+              value={value}
+              errorMsg={error?.message}
             />
           )}
         />
         <Controller
           control={control}
           name="password"
-          render={({ field }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <TextInput
               label="Password"
               placeholder="Create a password"
               type={'password'}
-              {...field}
+              onChange={onChange}
+              value={value}
+              errorMsg={error?.message}
             />
           )}
         />
