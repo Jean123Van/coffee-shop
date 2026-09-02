@@ -2,7 +2,7 @@ import TextInput from '../components/Inputs/TextInput/TextInput';
 import RegisterLayoutContainer from '../components/Register/RegisterLayoutContainer';
 import { COLORS } from '../theme/colors';
 import { useForm, Controller } from 'react-hook-form';
-import type { RegisterInput } from '../types/register';
+import type { RegisterInput } from '@/types/register';
 
 function Register() {
   const { control, handleSubmit } = useForm<RegisterInput>({
