@@ -5,5 +5,4 @@ interface RegisterInput {
   password: string;
 }
 
-//arando
 export { type RegisterInput };
