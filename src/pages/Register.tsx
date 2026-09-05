@@ -4,8 +4,16 @@ import { COLORS } from '../theme/colors';
 import { useForm, Controller } from 'react-hook-form';
 import { registerSchema, type RegisterInput } from '@/schemas/register.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { registerUser } from '@/api/authentication';
 
 function Register() {
+  const { mutate } = useMutation({
+    mutationFn: registerUser,
+    onSuccess: () => {},
+    onError: () => {},
+  });
+
   const { control, handleSubmit } = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -17,7 +25,7 @@ function Register() {
   });
 
   const onSubmitHandler = (registerInput: RegisterInput) => {
-    console.log(registerInput);
+    mutate(registerInput);
   };
 
   return (
