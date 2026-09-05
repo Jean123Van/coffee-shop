@@ -6,12 +6,16 @@ import { registerSchema, type RegisterInput } from '@/schemas/register.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '@/api/authentication';
+import { useState } from 'react';
+import RegisterSuccess from '@/components/Register/RegisterSuccess';
 
 function Register() {
-  const { mutate } = useMutation({
+  const [isRegSuccess, setIsRegSuccess] = useState<boolean | null>(false);
+
+  const { mutate, isPending } = useMutation({
     mutationFn: registerUser,
-    onSuccess: () => {},
-    onError: () => {},
+    onSuccess: () => setIsRegSuccess(true),
+    onError: () => setIsRegSuccess(false),
   });
 
   const { control, handleSubmit } = useForm<RegisterInput>({
@@ -25,8 +29,17 @@ function Register() {
   });
 
   const onSubmitHandler = (registerInput: RegisterInput) => {
+    console.log('registering');
     mutate(registerInput);
   };
+
+  if (isPending) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (isRegSuccess) {
+    return <RegisterSuccess />;
+  }
 
   return (
     <RegisterLayoutContainer type={'register'}>
