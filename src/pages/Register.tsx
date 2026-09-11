@@ -1,23 +1,19 @@
 import TextInput from '../components/Inputs/TextInput/TextInput';
 import RegisterLayoutContainer from '../components/Register/RegisterLayoutContainer';
-import { COLORS } from '../theme/colors';
 import { useForm, Controller } from 'react-hook-form';
 import { registerSchema, type RegisterInput } from '@/schemas/register.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '@/api/authentication';
-import { useState } from 'react';
 import RegisterSuccess from '@/components/Register/RegisterSuccess';
-import CoffeeLoadingAnimation from '@/components/Loading/CoffeeLoading';
 import CenterAuthBrownLayout from '@/components/Containers/CenteredAuthBrownLayout/CenterAuthBrownLayout';
+import ErrorModal from '@/components/Containers/ErrorModal';
+import LoadingModal from '@/components/Loading/LoadingModal';
+import BrownBtn from '@/components/Buttons/BrownBtn';
 
 function Register() {
-    const [isRegSuccess, setIsRegSuccess] = useState<boolean | null>(null);
-
-    const { mutate, isPending } = useMutation({
+    const { mutate, isPending, isSuccess, isError } = useMutation({
         mutationFn: registerUser,
-        onSuccess: () => setIsRegSuccess(true),
-        onError: () => setIsRegSuccess(false),
     });
 
     const { control, handleSubmit } = useForm<RegisterInput>({
@@ -36,7 +32,7 @@ function Register() {
 
     return (
         <CenterAuthBrownLayout>
-            {isRegSuccess ? (
+            {isSuccess ? (
                 <RegisterSuccess />
             ) : (
                 <RegisterLayoutContainer type={'register'}>
@@ -119,45 +115,11 @@ function Register() {
                                 />
                             )}
                         />
-                        {isRegSuccess === false && (
-                            <span className="text-red-500 text-[13px] border text-center rounded-[5px] p-[5px]">
-                                Something went wrong. Please try again.
-                            </span>
-                        )}
+                        {isError && <ErrorModal />}
                         {isPending ? (
-                            <div
-                                style={{
-                                    margin: 'auto',
-
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    gap: '5px',
-                                }}
-                            >
-                                <CoffeeLoadingAnimation />
-                                <span
-                                    style={{
-                                        paddingTop: '10px',
-                                    }}
-                                >
-                                    Brewing...
-                                </span>
-                            </div>
+                            <LoadingModal />
                         ) : (
-                            <button
-                                style={{
-                                    backgroundColor: COLORS.milkChocolate,
-                                    border: 'none',
-                                    color: 'white',
-                                    padding: '15px',
-                                    borderRadius: '4px',
-                                }}
-                                type="submit"
-                            >
-                                Create Account
-                            </button>
+                            <BrownBtn type="submit">Create Account</BrownBtn>
                         )}
                     </form>
                 </RegisterLayoutContainer>
