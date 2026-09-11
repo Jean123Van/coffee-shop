@@ -1,8 +1,13 @@
-function CenterAuthBrownLayout(){
-    return <div style={ {
-        
-    }}>
-        </div>
-}   
+interface CenterAuthBrownLayoutProps {
+    children?: React.ReactNode;
+}
 
-export default CenterAuthBrownLayout
+function CenterAuthBrownLayout({ children }: CenterAuthBrownLayoutProps) {
+    return (
+        <div className="flex justify-center items-center py-[30px] min-h-screen bg-brown">
+            {children}
+        </div>
+    );
+}
+
+export default CenterAuthBrownLayout;
