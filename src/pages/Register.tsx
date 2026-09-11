@@ -8,10 +8,10 @@ import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '@/api/authentication';
 import { useState } from 'react';
 import RegisterSuccess from '@/components/Register/RegisterSuccess';
-import coffee from '@/assets/coffee.png';
+import CoffeeLoadingAnimation from '@/components/Loading/CoffeeLoading';
 
 function Register() {
-    const [isRegSuccess, setIsRegSuccess] = useState<boolean | null>(false);
+    const [isRegSuccess, setIsRegSuccess] = useState<boolean | null>(null);
 
     const { mutate, isPending } = useMutation({
         mutationFn: registerUser,
@@ -30,13 +30,8 @@ function Register() {
     });
 
     const onSubmitHandler = (registerInput: RegisterInput) => {
-        console.log('registering');
         mutate(registerInput);
     };
-
-    if (isPending) {
-        return <h1>Loading...</h1>;
-    }
 
     if (isRegSuccess) {
         return <RegisterSuccess />;
@@ -119,14 +114,20 @@ function Register() {
                             onChange={onChange}
                             value={value}
                             errorMsg={error?.message}
+                            className="mb-[20px]!"
                         />
                     )}
                 />
+                {isRegSuccess === false && (
+                    <span className="text-red-500 text-[13px] border text-center rounded-[5px] p-[5px]">
+                        Something went wrong. Please try again.
+                    </span>
+                )}
                 {isPending ? (
                     <div
                         style={{
                             margin: 'auto',
-                            marginTop: '20px',
+
                             display: 'flex',
                             flexDirection: 'row',
                             justifyContent: 'center',
@@ -134,15 +135,9 @@ function Register() {
                             gap: '5px',
                         }}
                     >
-                        <img
-                            src={coffee}
-                            width={30}
-                            height={30}
-                            className="animate-[wiggle_1s_ease-in_infinite]"
-                        />
+                        <CoffeeLoadingAnimation />
                         <span
                             style={{
-                                // border: '1px solid black',
                                 paddingTop: '10px',
                             }}
                         >
@@ -157,7 +152,6 @@ function Register() {
                             color: 'white',
                             padding: '15px',
                             borderRadius: '4px',
-                            marginTop: '20px',
                         }}
                         type="submit"
                     >

@@ -1,6 +1,7 @@
 import { LuUser, LuMail, LuLock, LuEye, LuEyeOff } from 'react-icons/lu';
 import { COLORS } from '../../../theme/colors';
 import { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type TextInputType = 'text' | 'email' | 'password';
 interface TextInputProps {
@@ -11,6 +12,7 @@ interface TextInputProps {
     value?: string;
     errorMsg?: string;
     disabled?: boolean;
+    className?: string;
 }
 
 const icons = {
@@ -27,19 +29,14 @@ function TextInput({
     value,
     errorMsg,
     disabled,
+    className,
 }: TextInputProps) {
     const Icon = icons[type];
 
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '5px',
-            }}
-        >
+        <div className={twMerge('flex flex-col gap-[5px]', className)}>
             <label
                 style={{
                     fontSize: '12px',
