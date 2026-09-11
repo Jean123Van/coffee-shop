@@ -8,120 +8,165 @@ import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '@/api/authentication';
 import { useState } from 'react';
 import RegisterSuccess from '@/components/Register/RegisterSuccess';
+import coffee from '@/assets/coffee.png';
 
 function Register() {
-  const [isRegSuccess, setIsRegSuccess] = useState<boolean | null>(false);
+    const [isRegSuccess, setIsRegSuccess] = useState<boolean | null>(false);
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: registerUser,
-    onSuccess: () => setIsRegSuccess(true),
-    onError: () => setIsRegSuccess(false),
-  });
+    const { mutate, isPending } = useMutation({
+        mutationFn: registerUser,
+        onSuccess: () => setIsRegSuccess(true),
+        onError: () => setIsRegSuccess(false),
+    });
 
-  const { control, handleSubmit } = useForm<RegisterInput>({
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-    },
-  });
+    const { control, handleSubmit } = useForm<RegisterInput>({
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+        },
+    });
 
-  const onSubmitHandler = (registerInput: RegisterInput) => {
-    console.log('registering');
-    mutate(registerInput);
-  };
+    const onSubmitHandler = (registerInput: RegisterInput) => {
+        console.log('registering');
+        mutate(registerInput);
+    };
 
-  if (isPending) {
-    return <h1>Loading...</h1>;
-  }
+    if (isPending) {
+        return <h1>Loading...</h1>;
+    }
 
-  if (isRegSuccess) {
-    return <RegisterSuccess />;
-  }
+    if (isRegSuccess) {
+        return <RegisterSuccess />;
+    }
 
-  return (
-    <RegisterLayoutContainer type={'register'}>
-      <form
-        onSubmit={handleSubmit(onSubmitHandler)}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-          width: '100%',
-        }}
-      >
-        <Controller
-          control={control}
-          name="firstName"
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <TextInput
-              label="First name"
-              placeholder="Enter your first name"
-              onChange={onChange}
-              value={value}
-              errorMsg={error?.message}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="lastName"
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <TextInput
-              label="Last name"
-              placeholder="Enter your last name"
-              onChange={onChange}
-              value={value}
-              errorMsg={error?.message}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="email"
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <TextInput
-              label="Email"
-              placeholder="Enter your email"
-              type={'email'}
-              onChange={onChange}
-              value={value}
-              errorMsg={error?.message}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="password"
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <TextInput
-              label="Password"
-              placeholder="Create a password"
-              type={'password'}
-              onChange={onChange}
-              value={value}
-              errorMsg={error?.message}
-            />
-          )}
-        />
-        <button
-          style={{
-            backgroundColor: COLORS.milkChocolate,
-            border: 'none',
-            color: 'white',
-            padding: '15px',
-            borderRadius: '4px',
-            marginTop: '20px',
-          }}
-          type="submit"
-        >
-          Create Account
-        </button>
-      </form>
-    </RegisterLayoutContainer>
-  );
+    return (
+        <RegisterLayoutContainer type={'register'}>
+            <form
+                onSubmit={handleSubmit(onSubmitHandler)}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px',
+                    width: '100%',
+                }}
+            >
+                <Controller
+                    control={control}
+                    name="firstName"
+                    render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                    }) => (
+                        <TextInput
+                            label="First name"
+                            placeholder="Enter your first name"
+                            onChange={onChange}
+                            value={value}
+                            errorMsg={error?.message}
+                            disabled={isPending}
+                        />
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="lastName"
+                    render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                    }) => (
+                        <TextInput
+                            label="Last name"
+                            placeholder="Enter your last name"
+                            onChange={onChange}
+                            value={value}
+                            errorMsg={error?.message}
+                            disabled={isPending}
+                        />
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="email"
+                    render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                    }) => (
+                        <TextInput
+                            label="Email"
+                            placeholder="Enter your email"
+                            type={'email'}
+                            onChange={onChange}
+                            value={value}
+                            errorMsg={error?.message}
+                            disabled={isPending}
+                        />
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="password"
+                    render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                    }) => (
+                        <TextInput
+                            label="Password"
+                            placeholder="Create a password"
+                            type={'password'}
+                            onChange={onChange}
+                            value={value}
+                            errorMsg={error?.message}
+                        />
+                    )}
+                />
+                {isPending ? (
+                    <div
+                        style={{
+                            margin: 'auto',
+                            marginTop: '20px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: '5px',
+                        }}
+                    >
+                        <img
+                            src={coffee}
+                            width={30}
+                            height={30}
+                            className="animate-[wiggle_1s_ease-in_infinite]"
+                        />
+                        <span
+                            style={{
+                                // border: '1px solid black',
+                                paddingTop: '10px',
+                            }}
+                        >
+                            Brewing...
+                        </span>
+                    </div>
+                ) : (
+                    <button
+                        style={{
+                            backgroundColor: COLORS.milkChocolate,
+                            border: 'none',
+                            color: 'white',
+                            padding: '15px',
+                            borderRadius: '4px',
+                            marginTop: '20px',
+                        }}
+                        type="submit"
+                    >
+                        Create Account
+                    </button>
+                )}
+            </form>
+        </RegisterLayoutContainer>
+    );
 }
 
 export default Register;
