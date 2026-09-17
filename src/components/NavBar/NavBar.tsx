@@ -3,11 +3,26 @@ import logo from '../../assets/coffee.png';
 import BrownOutlinedBtn from '../Buttons/BrownOutlinedBtn';
 import LoggedOutActionItems from './LoggedOutActionItems';
 import ProfileDropDown from './ProfileDropDown';
+import { useQuery } from '@tanstack/react-query';
+import { getMe } from '@/api/user';
+import NavbarProfileSkeleton from '../Loading/NavbarProfileSkeleton';
+import { useEffect } from 'react';
+import type { AxiosError } from 'axios';
 
 function NavBar() {
     const navigate = useNavigate();
 
-    const isLoggedIn = !!localStorage.getItem('token');
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['me'],
+        queryFn: getMe,
+        enabled: !!localStorage.getItem('token'),
+    });
+
+    useEffect(() => {
+        if ((error as AxiosError)?.response?.status === 401) {
+            localStorage.removeItem('token');
+        }
+    }, [error]);
 
     return (
         <>
@@ -82,19 +97,24 @@ function NavBar() {
                         </button>
                     </div>
 
-                    {isLoggedIn ? (
+                    {isLoading && <NavbarProfileSkeleton />}
+
+                    {!isLoading && data && (
                         <div className="flex flex-row items-center">
                             <BrownOutlinedBtn>
                                 Contribute a Cafe
                             </BrownOutlinedBtn>
                             <div className="bg-brown h-[35px] w-[35px] flex justify-center items-center rounded-[100%] mr-[5px]!">
-                                <span className="text-[white]">JV</span>
+                                <span className="text-[white]">
+                                    {data.firstName[0].toLocaleUpperCase() +
+                                        data.lastName[0].toLocaleUpperCase()}
+                                </span>
                             </div>
                             <ProfileDropDown />
                         </div>
-                    ) : (
-                        <LoggedOutActionItems />
                     )}
+
+                    {!isLoading && !data && <LoggedOutActionItems />}
                 </div>
             </header>
 

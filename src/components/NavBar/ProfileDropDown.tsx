@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
+import { useQueryClient } from '@tanstack/react-query';
 
 function ProfileDropDown() {
+    const queryClient = useQueryClient();
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -20,6 +22,7 @@ function ProfileDropDown() {
                             event.stopPropagation();
 
                             localStorage.removeItem('token');
+                            queryClient.resetQueries();
                         }}
                     >
                         Logout
