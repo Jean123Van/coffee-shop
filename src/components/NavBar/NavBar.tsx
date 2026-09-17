@@ -1,9 +1,13 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import logo from '../../assets/coffee.png';
-import PrimaryBtn from '../Buttons/PrimaryBtn/PrimaryBtn';
+import BrownOutlinedBtn from '../Buttons/BrownOutlinedBtn';
+import LoggedOutActionItems from './LoggedOutActionItems';
+import ProfileDropDown from './ProfileDropDown';
 
 function NavBar() {
     const navigate = useNavigate();
+
+    const isLoggedIn = !!localStorage.getItem('token');
 
     return (
         <>
@@ -78,29 +82,19 @@ function NavBar() {
                         </button>
                     </div>
 
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: '2px',
-                        }}
-                    >
-                        <PrimaryBtn
-                            variant={'light'}
-                            onClick={() => {
-                                navigate('/login');
-                            }}
-                        >
-                            Log in
-                        </PrimaryBtn>
-                        <PrimaryBtn
-                            onClick={() => {
-                                navigate('/register');
-                            }}
-                        >
-                            Sign up
-                        </PrimaryBtn>
-                    </div>
+                    {isLoggedIn ? (
+                        <div className="flex flex-row items-center">
+                            <BrownOutlinedBtn>
+                                Contribute a Cafe
+                            </BrownOutlinedBtn>
+                            <div className="bg-brown h-[35px] w-[35px] flex justify-center items-center rounded-[100%] mr-[5px]!">
+                                <span className="text-[white]">JV</span>
+                            </div>
+                            <ProfileDropDown />
+                        </div>
+                    ) : (
+                        <LoggedOutActionItems />
+                    )}
                 </div>
             </header>
 
