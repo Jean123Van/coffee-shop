@@ -1,14 +1,14 @@
 import BannerWithSearch from '../components/Home/BannerWithSearch';
-// import ExploreByTagsList from '../components/Home/ExploreByTagsList';
-// import PopularLists from '../components/Home/PopularLists';
-// import TopRatedList from '../components/Home/TopRatedList';
+import ExploreByTagsList from '../components/Home/ExploreByTagsList';
+import PopularLists from '../components/Home/PopularLists';
+import TopRatedList from '../components/Home/TopRatedList';
 
 function Home() {
     return (
         <section className="flex flex-col">
             <BannerWithSearch />
 
-            {/* <div
+            <div
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -20,7 +20,7 @@ function Home() {
                 <TopRatedList />
                 <ExploreByTagsList />
                 <PopularLists />
-            </div> */}
+            </div>
         </section>
     );
 }

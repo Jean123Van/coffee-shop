@@ -4,7 +4,7 @@ import RegisterLayoutContainer from '../components/Register/RegisterLayoutContai
 import { Controller, useForm } from 'react-hook-form';
 import { loginSchema, type LoginInput } from '@/schemas/login.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { loginUser } from '@/api/authentication';
 import type { LoginResponse } from '@/types/login';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ import BrownBtn from '@/components/Buttons/BrownBtn';
 
 function Login() {
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
     const [isInvalidCreds, setIsInvalidCreds] = useState(false);
     const [isUnexpectedError, setIsUnexpectedError] = useState(false);
@@ -24,6 +25,7 @@ function Login() {
         mutationFn: loginUser,
         onSuccess: (loginResponse: LoginResponse) => {
             localStorage.setItem('token', loginResponse.token);
+            queryClient.invalidateQueries({ queryKey: ['me'] });
             navigate('/');
         },
         onError: (error: AxiosError) => {

@@ -16,6 +16,7 @@ function NavBar() {
         queryKey: ['me'],
         queryFn: getMe,
         enabled: !!localStorage.getItem('token'),
+        staleTime: Infinity,
     });
 
     useEffect(() => {

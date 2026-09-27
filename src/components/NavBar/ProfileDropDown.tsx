@@ -22,7 +22,7 @@ function ProfileDropDown() {
                             event.stopPropagation();
 
                             localStorage.removeItem('token');
-                            queryClient.resetQueries();
+                            queryClient.setQueryData(['me'], null);
                         }}
                     >
                         Logout
