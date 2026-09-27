@@ -1,11 +1,40 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import ImageBanner from '../components/CoffeeShopMainPage/ImageBanner';
 import TitleHeader from '../components/CoffeeShopMainPage/TitleHeader';
 import Ratings from '../components/CoffeeShopMainPage/Ratings';
 import Highlights from '../components/CoffeeShopMainPage/Highlights';
 import About from '../components/CoffeeShopMainPage/About';
+import { twMerge } from 'tailwind-merge';
+
+function HeaderTabs({
+    name,
+    isActive,
+    onClick,
+}: {
+    name: string;
+    isActive: boolean;
+    onClick: () => void;
+}) {
+    return (
+        <button
+            className={twMerge(
+                'text-[20px] font-bold  text-lightGray pb-[10px] cursor-pointer',
+                isActive && ' text-brown border-b-2',
+            )}
+
+            onClick={onClick}
+        >
+            {name}
+        </button>
+    );
+}
+
+type AvailableTabs = 'overViewAndRatings' | 'virtualTour';
 
 function CoffeeShopMainPage() {
+    const [activeTab, setActiveTab] =
+        useState<AvailableTabs>('overViewAndRatings');
+
     const data = useMemo(
         () => ({
             coverImg:
@@ -52,9 +81,29 @@ function CoffeeShopMainPage() {
                 operatingHours={data.operatingHours}
                 name={data.name}
             />
-            <Ratings ratings={data.ratings} totalRating={totalRating} />
-            <Highlights />
-            <About />
+
+            <div className="border-b-1 mb-[15px]! flex flex-row gap-[20px] border-lightGray">
+                <HeaderTabs
+                    onClick={() => setActiveTab('overViewAndRatings')}
+                    isActive={activeTab === 'overViewAndRatings'}
+                    name="Overview & Ratings"
+                />
+                <HeaderTabs
+                    onClick={() => setActiveTab('virtualTour')}
+                    isActive={activeTab === 'virtualTour'}
+                    name="3D Render & Virtual Tour"
+                />
+            </div>
+
+            {activeTab === 'overViewAndRatings' && (
+                <>
+                    <Ratings ratings={data.ratings} totalRating={totalRating} />
+                    <Highlights />
+                    <About />
+                </>
+            )}
+
+            {activeTab === 'virtualTour' && <div></div>}
         </>
     );
 }
