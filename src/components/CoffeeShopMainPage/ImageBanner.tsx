@@ -14,19 +14,8 @@ function ImageBanner({ images, coverImg }: ImageBannerProps) {
                 position: 'relative',
             }}
         >
-            <button
-                style={{
-                    position: 'absolute',
-                    backgroundColor: 'white',
-                    border: 'none',
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '100%',
-                    top: '25px',
-                    right: '25px',
-                }}
-            >
-                <LuShare size={15} />
+            <button className="absolute w-[40px] h-[40px] bg-[white] top-[25px] right-[25px] rounded-full flex flex-row justify-center items-center cursor-pointer">
+                <LuShare size={20} />
             </button>
             <div
                 style={{
@@ -62,11 +51,7 @@ function ImageBanner({ images, coverImg }: ImageBannerProps) {
                         >
                             <img
                                 src={image}
-                                width={'100%'}
-                                height={'100%'}
-                                style={{
-                                    objectFit: 'cover',
-                                }}
+                                className="w-full h-full object-cover"
                             />
                             {index + 1 === arr.length && (
                                 <div
@@ -98,12 +83,7 @@ function ImageBanner({ images, coverImg }: ImageBannerProps) {
             </div>
             <img
                 src={coverImg}
-                style={{
-                    objectFit: 'cover',
-                    borderRadius: '10px',
-                }}
-                width={'100%'}
-                height={'100%'}
+                className="w-full h-full object-cover rounded-[10px]"
             />
         </div>
     );

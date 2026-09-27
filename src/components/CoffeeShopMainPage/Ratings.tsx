@@ -122,7 +122,7 @@ function Ratings({ ratings, totalRating }: RatingsProps) {
                             >
                                 {totalRating}
                             </span>
-                            <div>
+                            <div className="flex flex-row">
                                 <LuStar color={COLORS.brown} fill="gold" />
                                 <LuStar color={COLORS.brown} fill="gold" />
                                 <LuStar color={COLORS.brown} fill="gold" />

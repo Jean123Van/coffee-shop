@@ -24,22 +24,8 @@ function TitleHeader({
                 marginBottom: '20px',
             }}
         >
-            <h1
-                style={{
-                    marginBottom: '7px',
-                }}
-            >
-                {name}
-            </h1>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    marginBottom: '5px',
-                    gap: '8px',
-                    alignItems: 'center',
-                }}
-            >
+            <h1 className="text-[40px] font-bold mb-[7px]">{name}</h1>
+            <div className="flex flex-row mb-[5px] gap-[8px] items-center">
                 <span
                     style={{
                         fontWeight: 'bold',
@@ -48,7 +34,7 @@ function TitleHeader({
                 >
                     {totalRating}
                 </span>
-                <div>
+                <div className="flex flex-row">
                     <LuStar color={COLORS.brown} fill="gold" />
                     <LuStar color={COLORS.brown} fill="gold" />
                     <LuStar color={COLORS.brown} fill="gold" />
