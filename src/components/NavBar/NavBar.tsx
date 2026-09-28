@@ -8,9 +8,12 @@ import { getMe } from '@/api/user';
 import NavbarProfileSkeleton from '../Loading/NavbarProfileSkeleton';
 import { useEffect } from 'react';
 import type { AxiosError } from 'axios';
+import { useLocation } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
 
 function NavBar() {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['me'],
@@ -84,15 +87,12 @@ function NavBar() {
                             onClick={() => {
                                 navigate('/');
                             }}
-                            style={{
-                                border: 'none',
-                                backgroundColor: 'transparent',
-                                fontWeight: 'bold',
-                                color: 'black',
-                                height: '60px',
-                                borderBottom: `2px solid black`,
-                                cursor: 'pointer',
-                            }}
+                            className={twMerge(
+                                'border-0 bg-transparent font-bold text-[black] h-[60px] cursor-pointer',
+                                (location.pathname === '/' ||
+                                    location.pathname.startsWith('/cafe')) &&
+                                    'border-b-2',
+                            )}
                         >
                             Discover
                         </button>
