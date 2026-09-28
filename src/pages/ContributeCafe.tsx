@@ -1,101 +1,37 @@
-import { twMerge } from 'tailwind-merge';
 import { MdCameraAlt } from 'react-icons/md';
-import { LuPlus } from 'react-icons/lu';
+
 import BrownBtn from '@/components/Buttons/BrownBtn';
-
-function BrownContainerLabel({ label }: { label: string }) {
-    return <span className="text-[20px] font-bold text-brown">{label}</span>;
-}
-
-function InputFieldBase({
-    className,
-    placeholder,
-}: {
-    className?: string;
-    placeholder?: string;
-}) {
-    return (
-        <input
-            placeholder={placeholder}
-            className={twMerge(
-                'border-2 border-lightGray rounded-[5px] text-[17px] p-[5px] text-[grey] outline-none',
-                className,
-            )}
-        />
-    );
-}
-
-function InputCafeInfo({
-    label,
-    className,
-}: {
-    label: string;
-    className?: string;
-}) {
-    return (
-        <div className={twMerge('flex flex-col', className)}>
-            <label>{label}</label>
-            <InputFieldBase />
-        </div>
-    );
-}
-
-function GrayShadowedContainer({
-    children,
-    className,
-}: {
-    children: React.ReactNode;
-    className?: string;
-}) {
-    return (
-        <div
-            className={twMerge(
-                'border border-lightGray rounded-[8px] p-[10px] mt-[5px]! shadow-md',
-                className,
-            )}
-        >
-            {children}
-        </div>
-    );
-}
-
-function InputCafeInfoContainer({
-    title,
-    children,
-}: {
-    title: string;
-    children: React.ReactNode;
-}) {
-    return (
-        <GrayShadowedContainer>
-            <span className="font-bold text-[18px]">{title}</span>
-            {children}
-        </GrayShadowedContainer>
-    );
-}
-
-function InputOperatingHoursByDay({ label }: { label?: string }) {
-    return (
-        <div className=" flex flex-col gap-[5px] ">
-            <label className="text-[18px]">{label}</label>
-            <div className="flex flex-row gap-[5px] items-center">
-                <InputFieldBase className="w-[60px] " placeholder="00:00" />
-                -
-                <InputFieldBase className="w-[60px]" placeholder="23:00" />
-            </div>
-        </div>
-    );
-}
-
-function UploadPhotoBoxBtn() {
-    return (
-        <div className="border border-dashed text-[30px] w-[70px] h-[70px] rounded-[5px] border-brown flex flex-row items-center justify-center">
-            <LuPlus className="text-[gray]" />
-        </div>
-    );
-}
+import { BrownContainerLabel } from '@/components/ContributeCafe/Labels';
+import {
+    GrayShadowedContainer,
+    InputCafeInfoContainer,
+} from '@/components/ContributeCafe/Containers';
+import {
+    InputCafeInfo,
+    InputOperatingHoursByDay,
+} from '@/components/ContributeCafe/InputFields';
+import UploadPhotoBoxBtn from '@/components/ContributeCafe/UploadPhotoBoxBtn';
+import { Controller, useForm } from 'react-hook-form';
+import {
+    type CreateCafeInput,
+    createCafeSchema,
+} from '@/schemas/CreateCafe.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 function ContributeCafe() {
+    const { control, handleSubmit } = useForm<CreateCafeInput>({
+        resolver: zodResolver(createCafeSchema),
+        defaultValues: {
+            cafeName: '',
+            cafeAddress: '',
+            cafeAboutUs: '',
+        },
+    });
+
+    const onSubmitHandler = (data: CreateCafeInput) => {
+        console.log(data);
+    };
+
     return (
         <div>
             <h1 className="text-[50px] font-bold text-brown">
@@ -110,13 +46,37 @@ function ContributeCafe() {
                     <InputCafeInfoContainer title="Cafe Information">
                         <div className="flex flex-row gap-[10px]">
                             {' '}
-                            <InputCafeInfo
-                                label="Cafe Name"
-                                className="w-[40%]"
+                            <Controller
+                                control={control}
+                                name="cafeName"
+                                render={({
+                                    field: { onChange, value },
+                                    fieldState: { error },
+                                }) => (
+                                    <InputCafeInfo
+                                        onChange={onChange}
+                                        value={value}
+                                        label="Cafe Name"
+                                        className="w-[40%]"
+                                        error={error?.message}
+                                    />
+                                )}
                             />
-                            <InputCafeInfo
-                                label="Address / Location"
-                                className="w-[60%]"
+                            <Controller
+                                control={control}
+                                name="cafeAddress"
+                                render={({
+                                    field: { onChange, value },
+                                    fieldState: { error },
+                                }) => (
+                                    <InputCafeInfo
+                                        onChange={onChange}
+                                        value={value}
+                                        label="Address / Location"
+                                        className="w-[60%]"
+                                        error={error?.message}
+                                    />
+                                )}
                             />
                         </div>
                     </InputCafeInfoContainer>
@@ -154,11 +114,27 @@ function ContributeCafe() {
                     </div>
                 </section>
                 <GrayShadowedContainer className="flex flex-col">
-                    <textarea className="mb-[5px]! h-[100px] border-2 border-lightGray rounded-[5px] text-[17px] text-[grey] outline-none p-[5px]" />
+                    <Controller
+                        control={control}
+                        name="cafeAboutUs"
+
+                        render={({ field: { onChange, value } }) => (
+                            <textarea
+                                onChange={onChange}
+                                value={value}
+                                className="mb-[5px]! h-[100px] border-2 border-lightGray rounded-[5px] text-[17px] text-[grey] outline-none p-[5px]"
+                                placeholder="ABOUT US"
+                            />
+                        )}
+                    />
+
                     <span className="text-[15px] mb-[10px]!">
                         A short engaging description of the coffee shop.
                     </span>
-                    <BrownBtn className="py-[5px] self-end">
+                    <BrownBtn
+                        className="py-[5px] self-end"
+                        onClick={handleSubmit(onSubmitHandler)}
+                    >
                         Submit for Review
                     </BrownBtn>
                 </GrayShadowedContainer>
