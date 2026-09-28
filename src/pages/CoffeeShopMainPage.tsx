@@ -5,6 +5,7 @@ import Ratings from '../components/CoffeeShopMainPage/Ratings';
 import Highlights from '../components/CoffeeShopMainPage/Highlights';
 import About from '../components/CoffeeShopMainPage/About';
 import { twMerge } from 'tailwind-merge';
+import VirtualTour from '@/components/CoffeeShopMainPage/VirtualTour';
 
 function HeaderTabs({
     name,
@@ -91,7 +92,7 @@ function CoffeeShopMainPage() {
                 <HeaderTabs
                     onClick={() => setActiveTab('virtualTour')}
                     isActive={activeTab === 'virtualTour'}
-                    name="3D Render & Virtual Tour"
+                    name="3D Virtual Tour"
                 />
             </div>
 
@@ -103,7 +104,7 @@ function CoffeeShopMainPage() {
                 </>
             )}
 
-            {activeTab === 'virtualTour' && <div></div>}
+            {activeTab === 'virtualTour' && <VirtualTour />}
         </>
     );
 }
