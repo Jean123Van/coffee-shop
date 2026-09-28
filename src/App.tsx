@@ -4,6 +4,7 @@ import Register from './pages/Register.tsx';
 import Login from './pages/Login.tsx';
 import NavBar from './components/NavBar/NavBar.tsx';
 import CoffeeShopMainPage from './pages/CoffeeShopMainPage.tsx';
+import ContributeCafe from './pages/ContributeCafe.tsx';
 
 function App() {
     return (
@@ -12,6 +13,10 @@ function App() {
                 <Route element={<NavBar />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/cafe/:id" element={<CoffeeShopMainPage />} />
+                    <Route
+                        path="/contribute-cafe"
+                        element={<ContributeCafe />}
+                    />
                 </Route>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />

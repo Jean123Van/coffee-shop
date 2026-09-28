@@ -102,7 +102,9 @@ function NavBar() {
 
                     {!isLoading && data && (
                         <div className="flex flex-row items-center">
-                            <BrownOutlinedBtn>
+                            <BrownOutlinedBtn
+                                onClick={() => navigate('/contribute-cafe')}
+                            >
                                 Contribute a Cafe
                             </BrownOutlinedBtn>
                             <div className="bg-brown h-[35px] w-[35px] flex justify-center items-center rounded-[100%] mr-[5px]!">
