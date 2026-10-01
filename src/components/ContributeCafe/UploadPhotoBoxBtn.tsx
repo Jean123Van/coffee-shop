@@ -1,12 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { LuPlus } from 'react-icons/lu';
 import { FiX } from 'react-icons/fi';
 
-function UploadPhotoBoxBtn() {
+interface UploadPhotoBoxBtnProps {
+    filesRef: React.RefObject<File[]>;
+}
+
+function UploadPhotoBoxBtn({ filesRef }: UploadPhotoBoxBtnProps) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const [file, setFile] = useState<undefined | File>(undefined);
-    const [previewUrl, setPreviewUrl] = useState<null | string>(null);
+    const previewUrl = useMemo(() => {
+        if (file) {
+            return URL.createObjectURL(file);
+        }
+    }, [file]);
 
     useEffect(() => {
         return () => {
@@ -14,7 +22,7 @@ function UploadPhotoBoxBtn() {
                 URL.revokeObjectURL(previewUrl);
             }
         };
-    });
+    }, [previewUrl]);
 
     return (
         <>
@@ -25,13 +33,8 @@ function UploadPhotoBoxBtn() {
                 accept="image/*"
 
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setFile(e.target.files?.[0]);
-
-                    if (previewUrl) {
-                        URL.revokeObjectURL(previewUrl);
-                    }
-
-                    setPreviewUrl(URL.createObjectURL(e.target.files![0]));
+                    setFile(e.target.files![0]);
+                    filesRef.current.push(e.target.files![0]);
                 }}
             />
             <div className="border border-dashed rounded-[5px] w-[70px] h-[70px] relative">
@@ -44,8 +47,13 @@ function UploadPhotoBoxBtn() {
                                     URL.revokeObjectURL(previewUrl);
                                 }
 
+                                filesRef.current = filesRef.current.filter(
+                                    (fileRef) =>
+                                        fileRef.lastModified ===
+                                        file?.lastModified,
+                                );
+
                                 setFile(undefined);
-                                setPreviewUrl(null);
                             }}
                         >
                             <FiX className="text-[red] w-[20px] h-[20px]  border bg-[white]  rounded-full p-[3px] " />

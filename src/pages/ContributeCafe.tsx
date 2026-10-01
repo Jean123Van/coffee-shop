@@ -17,8 +17,11 @@ import {
     createCafeSchema,
 } from '@/schemas/CreateCafe.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRef } from 'react';
 
 function ContributeCafe() {
+    const filesRef = useRef<File[]>([]);
+
     const defaultDaySched = {
         isOpen: true,
         opening: '',
@@ -141,14 +144,12 @@ function ContributeCafe() {
                             </span>
                         </div>
                         <div className="flex flex-wrap mt-[10px]! gap-[12px]">
-                            <UploadPhotoBoxBtn />
-                            <UploadPhotoBoxBtn />
-                            <UploadPhotoBoxBtn />
-                            <UploadPhotoBoxBtn />
-                            <UploadPhotoBoxBtn />
-                            <UploadPhotoBoxBtn />
-                            <UploadPhotoBoxBtn />
-                            <UploadPhotoBoxBtn />
+                            {Array.from({ length: 8 }, (_, index) => (
+                                <UploadPhotoBoxBtn
+                                    key={index}
+                                    filesRef={filesRef}
+                                />
+                            ))}
                         </div>
                     </div>
                 </section>
