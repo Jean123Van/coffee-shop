@@ -7,6 +7,8 @@ const dayScheduleSchema = z
         closing: z.string(),
     })
     .superRefine((data, ctx) => {
+        let hasInputError = false;
+
         if (!data.isOpen) return;
 
         if (!data.opening.trim()) {
@@ -15,6 +17,7 @@ const dayScheduleSchema = z
                 message: 'Opening time is required.',
                 path: ['opening'],
             });
+            hasInputError = true;
         }
 
         if (!data.closing.trim()) {
@@ -22,6 +25,42 @@ const dayScheduleSchema = z
                 code: 'custom',
                 message: 'Closing time is required.',
                 path: ['closing'],
+            });
+            hasInputError = true;
+        }
+
+        if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(data.opening.trim())) {
+            ctx.addIssue({
+                code: 'custom',
+                message: 'Opening time must be HH:MM (e.g., 09:00 or 23:00).',
+                path: ['opening'],
+            });
+            hasInputError = true;
+        }
+
+        if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(data.closing.trim())) {
+            ctx.addIssue({
+                code: 'custom',
+                message: 'Closing time must be HH:MM (e.g., 09:00 or 23:00).',
+                path: ['closing'],
+            });
+            hasInputError = true;
+        }
+
+        if (hasInputError) return;
+
+        function timeToNumber(time: string) {
+            return Number(time.replace(':', ''));
+        }
+
+        const openingTime = timeToNumber(data.opening);
+        const closingTime = timeToNumber(data.closing);
+
+        if (openingTime > closingTime) {
+            ctx.addIssue({
+                code: 'custom',
+                message: 'Opening time must not be later than closing time',
+                path: ['opening'],
             });
         }
     });
