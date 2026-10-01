@@ -19,14 +19,39 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 
 function ContributeCafe() {
+    const defaultDaySched = {
+        isOpen: true,
+        opening: '',
+        closing: '',
+    };
+
     const { control, handleSubmit } = useForm<CreateCafeInput>({
         resolver: zodResolver(createCafeSchema),
         defaultValues: {
             cafeName: '',
             cafeAddress: '',
             cafeAboutUs: '',
+            cafeSchedule: {
+                monday: defaultDaySched,
+                tuesday: defaultDaySched,
+                wednesday: defaultDaySched,
+                thursday: defaultDaySched,
+                friday: defaultDaySched,
+                saturday: defaultDaySched,
+                sunday: defaultDaySched,
+            },
         },
     });
+
+    const daysOfTheWeek = [
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday',
+    ] as const;
 
     const onSubmitHandler = (data: CreateCafeInput) => {
         console.log(data);
@@ -83,13 +108,27 @@ function ContributeCafe() {
                 </section>
                 <InputCafeInfoContainer title="Operating Hours">
                     <div className="flex flex-wrap gap-[15px]">
-                        <InputOperatingHoursByDay label="Monday" />
-                        <InputOperatingHoursByDay label="Tuesday" />
-                        <InputOperatingHoursByDay label="Wednesday" />
-                        <InputOperatingHoursByDay label="Thursday" />
-                        <InputOperatingHoursByDay label="Friday" />
-                        <InputOperatingHoursByDay label="Saturday" />
-                        <InputOperatingHoursByDay label="Sunday" />
+                        {daysOfTheWeek.map((day) => (
+                            <Controller
+                                key={day}
+                                control={control}
+                                name={`cafeSchedule.${day}`}
+                                render={({
+                                    field: { onChange, value },
+                                    fieldState: { error },
+                                }) => (
+                                    <InputOperatingHoursByDay
+                                        label={
+                                            day.charAt(0).toUpperCase() +
+                                            day.slice(1)
+                                        }
+                                        values={value}
+                                        onChange={onChange}
+                                        error={error}
+                                    />
+                                )}
+                            />
+                        ))}
                     </div>
                 </InputCafeInfoContainer>
                 <section>
