@@ -1,20 +1,20 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { LuPlus } from 'react-icons/lu';
 import { FiX } from 'react-icons/fi';
 
 interface UploadPhotoBoxBtnProps {
-    filesRef: React.RefObject<File[]>;
+    image?: File;
+    onUpload?: (image?: File) => void;
 }
 
-function UploadPhotoBoxBtn({ filesRef }: UploadPhotoBoxBtnProps) {
+function UploadPhotoBoxBtn({ image, onUpload }: UploadPhotoBoxBtnProps) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const [file, setFile] = useState<undefined | File>(undefined);
     const previewUrl = useMemo(() => {
-        if (file) {
-            return URL.createObjectURL(file);
+        if (image) {
+            return URL.createObjectURL(image);
         }
-    }, [file]);
+    }, [image]);
 
     useEffect(() => {
         return () => {
@@ -33,8 +33,8 @@ function UploadPhotoBoxBtn({ filesRef }: UploadPhotoBoxBtnProps) {
                 accept="image/*"
 
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setFile(e.target.files![0]);
-                    filesRef.current.push(e.target.files![0]);
+                    const file = e.target.files?.[0];
+                    onUpload?.(file);
                 }}
             />
             <div className="border border-dashed rounded-[5px] w-[70px] h-[70px] relative">
@@ -43,17 +43,7 @@ function UploadPhotoBoxBtn({ filesRef }: UploadPhotoBoxBtnProps) {
                         <button
                             className="absolute right-[-10px] top-[-10px] cursor-pointer"
                             onClick={() => {
-                                if (previewUrl) {
-                                    URL.revokeObjectURL(previewUrl);
-                                }
-
-                                filesRef.current = filesRef.current.filter(
-                                    (fileRef) =>
-                                        fileRef.lastModified ===
-                                        file?.lastModified,
-                                );
-
-                                setFile(undefined);
+                                onUpload?.(undefined);
                             }}
                         >
                             <FiX className="text-[red] w-[20px] h-[20px]  border bg-[white]  rounded-full p-[3px] " />

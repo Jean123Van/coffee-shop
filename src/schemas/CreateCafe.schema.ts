@@ -1,5 +1,7 @@
 import z from 'zod';
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; //5mb limit
+
 const dayScheduleSchema = z
     .object({
         isOpen: z.boolean(),
@@ -81,6 +83,24 @@ const createCafeSchema = z.object({
         saturday: dayScheduleSchema,
         sunday: dayScheduleSchema,
     }),
+    cafeImages: z
+        .array(
+            z
+                .custom<File | undefined>()
+                .refine(
+                    (file) => !file || MAX_FILE_SIZE >= file.size,
+                    'Image must be 5mb or less',
+                )
+                .refine(
+                    (file) => !file || file.type.startsWith('image/'),
+                    'Image should be valid image file type',
+                ),
+        )
+        .length(8)
+        .refine(
+            (files) => files.some((file) => file instanceof File),
+            'An image is required',
+        ),
 });
 
 type CreateCafeInput = z.infer<typeof createCafeSchema>;

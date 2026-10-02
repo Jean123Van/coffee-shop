@@ -17,18 +17,19 @@ import {
     createCafeSchema,
 } from '@/schemas/CreateCafe.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
 
 function ContributeCafe() {
-    const filesRef = useRef<File[]>([]);
-
     const defaultDaySched = {
         isOpen: true,
         opening: '',
         closing: '',
     };
 
-    const { control, handleSubmit } = useForm<CreateCafeInput>({
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<CreateCafeInput>({
         resolver: zodResolver(createCafeSchema),
         defaultValues: {
             cafeName: '',
@@ -43,6 +44,16 @@ function ContributeCafe() {
                 saturday: defaultDaySched,
                 sunday: defaultDaySched,
             },
+            cafeImages: [
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+            ],
         },
     });
 
@@ -145,12 +156,26 @@ function ContributeCafe() {
                         </div>
                         <div className="flex flex-wrap mt-[10px]! gap-[12px]">
                             {Array.from({ length: 8 }, (_, index) => (
-                                <UploadPhotoBoxBtn
+                                <Controller
                                     key={index}
-                                    filesRef={filesRef}
+                                    control={control}
+                                    name={`cafeImages.${index}`}
+                                    render={({
+                                        field: { value, onChange },
+                                    }) => (
+                                        <UploadPhotoBoxBtn
+                                            image={value}
+                                            onUpload={onChange}
+                                        />
+                                    )}
                                 />
                             ))}
                         </div>
+                        {errors.cafeImages?.root?.message && (
+                            <span className="mt-[10px]! text-[red]">
+                                {errors.cafeImages.root.message}
+                            </span>
+                        )}
                     </div>
                 </section>
                 <GrayShadowedContainer className="flex flex-col">
