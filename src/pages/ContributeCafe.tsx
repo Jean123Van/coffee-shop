@@ -17,6 +17,8 @@ import {
     createCafeSchema,
 } from '@/schemas/CreateCafe.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { createCafe } from '@/api/cafe';
 
 function ContributeCafe() {
     const defaultDaySched = {
@@ -67,8 +69,12 @@ function ContributeCafe() {
         'sunday',
     ] as const;
 
+    const { mutate } = useMutation({
+        mutationFn: createCafe,
+    });
+
     const onSubmitHandler = (data: CreateCafeInput) => {
-        console.log(data);
+        mutate(data);
     };
 
     return (
