@@ -26,11 +26,6 @@ async function createCafe(data: CreateCafeInput): Promise<object> {
     const axiosResponse = await authApiClient.post(
         '/api/cafe/add-new',
         formData,
-        {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        },
     );
     return axiosResponse.data;
 }

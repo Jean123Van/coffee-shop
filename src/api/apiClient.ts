@@ -3,16 +3,10 @@ import axios from 'axios';
 
 const apiClient = axios.create({
     baseURL: baseUrl,
-    headers: {
-        'Content-Type': 'application/json',
-    },
 });
 
 const authApiClient = axios.create({
     baseURL: baseUrl,
-    headers: {
-        'Content-Type': 'application/json',
-    },
 });
 
 authApiClient.interceptors.request.use((config) => {
