@@ -19,6 +19,43 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { createCafe } from '@/api/cafe';
+import CenterModal from '@/components/Modal/CenterModal';
+import spilled_coffee from '@/assets/spilled_coffee.png';
+
+function ErrorCreationModal({
+    isActive,
+    onClose,
+}: {
+    isActive: boolean;
+    onClose: () => void;
+}) {
+    return (
+        <CenterModal
+            className="max-w-[400px] shadow-lg"
+            isActive={isActive}
+            onDismiss={onClose}
+        >
+            <img src={spilled_coffee} height={120} width={120} />
+            <span className="text-lg font-bold text-[#5C1D1D] mb-[15px]!">
+                Failed to Create
+            </span>
+            <span className="text-brown text-sm w-full">
+                Hmn... Something wrong seem to have happened.
+            </span>
+            <span className="text-brown text-sm w-full">
+                Please try again later or contact customer support if issue
+                persists.
+            </span>
+            <BrownBtn
+                className="py-[10px] px-[20px] mt-[15px]!"
+                onClick={onClose}
+            >
+                {' '}
+                Ok
+            </BrownBtn>
+        </CenterModal>
+    );
+}
 
 function ContributeCafe() {
     const defaultDaySched = {
@@ -69,7 +106,7 @@ function ContributeCafe() {
         'sunday',
     ] as const;
 
-    const { mutate } = useMutation({
+    const { mutate, isError, reset } = useMutation({
         mutationFn: createCafe,
     });
 
@@ -79,6 +116,9 @@ function ContributeCafe() {
 
     return (
         <div>
+            {/* Error Creation Modal */}
+            <ErrorCreationModal isActive={isError} onClose={reset} />
+            {/*  */}
             <h1 className="text-[50px] font-bold text-brown">
                 Contribute a Cafe
             </h1>
