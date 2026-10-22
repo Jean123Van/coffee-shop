@@ -21,6 +21,21 @@ import { useMutation } from '@tanstack/react-query';
 import { createCafe } from '@/api/cafe';
 import CenterModal from '@/components/Modal/CenterModal';
 import spilled_coffee from '@/assets/spilled_coffee.png';
+import coffee_mug from '@/assets/coffee_mug.png';
+
+function LoadingModal({ isActive }: { isActive: boolean }) {
+    return (
+        <CenterModal isActive={isActive}>
+            <img
+                src={coffee_mug}
+                width={70}
+                height={70}
+                className="animate-[pour_1.5s_ease-in_infinite] mb-[15px]!"
+            />
+            <h1 className="text-brown font-bold">Loading please wait</h1>
+        </CenterModal>
+    );
+}
 
 function ErrorCreationModal({
     isActive,
@@ -34,6 +49,7 @@ function ErrorCreationModal({
             className="max-w-[400px] shadow-lg"
             isActive={isActive}
             onDismiss={onClose}
+            type="error"
         >
             <img src={spilled_coffee} height={120} width={120} />
             <span className="text-lg font-bold text-[#5C1D1D] mb-[15px]!">
@@ -106,7 +122,7 @@ function ContributeCafe() {
         'sunday',
     ] as const;
 
-    const { mutate, isError, reset } = useMutation({
+    const { mutate, isError, reset, isPending } = useMutation({
         mutationFn: createCafe,
     });
 
@@ -118,6 +134,9 @@ function ContributeCafe() {
         <div>
             {/* Error Creation Modal */}
             <ErrorCreationModal isActive={isError} onClose={reset} />
+            {/*  */}
+            {/* Creation Loading Modal */}
+            <LoadingModal isActive={isPending} />
             {/*  */}
             <h1 className="text-[50px] font-bold text-brown">
                 Contribute a Cafe
