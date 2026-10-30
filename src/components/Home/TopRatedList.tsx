@@ -73,6 +73,8 @@ function TopRatedList() {
             >
                 {coffeeShops.map((coffeeShop) => (
                     <div
+                        key={coffeeShop.name}
+
                         style={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -151,6 +153,7 @@ function TopRatedList() {
                             >
                                 {coffeeShop.tags.map((tag) => (
                                     <span
+                                        key={tag}
                                         style={{
                                             backgroundColor: COLORS.warmBrown,
                                             fontSize: '11px',

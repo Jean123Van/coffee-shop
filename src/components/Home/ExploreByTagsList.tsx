@@ -70,7 +70,11 @@ function ExploreByTagsList() {
                 }}
             >
                 {tags.map((tag) => (
-                    <HighlightsTile icon={tag.icon} name={tag.name} />
+                    <HighlightsTile
+                        icon={tag.icon}
+                        name={tag.name}
+                        key={tag.name}
+                    />
                 ))}
             </div>
         </section>

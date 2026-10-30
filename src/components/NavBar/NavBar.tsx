@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import logo from '../../assets/coffee.png';
 import BrownOutlinedBtn from '../Buttons/BrownOutlinedBtn';
 import LoggedOutActionItems from './LoggedOutActionItems';
@@ -8,7 +8,6 @@ import { getMe } from '@/api/user';
 import NavbarProfileSkeleton from '../Loading/NavbarProfileSkeleton';
 import { useEffect } from 'react';
 import type { AxiosError } from 'axios';
-import { useLocation } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
 function NavBar() {

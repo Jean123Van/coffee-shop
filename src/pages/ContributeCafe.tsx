@@ -22,6 +22,7 @@ import { createCafe } from '@/api/cafe';
 import CenterModal from '@/components/Modal/CenterModal';
 import spilled_coffee from '@/assets/spilled_coffee.png';
 import coffee_mug from '@/assets/coffee_mug.png';
+import { useNavigate } from 'react-router-dom';
 
 function LoadingModal({ isActive }: { isActive: boolean }) {
     return (
@@ -74,6 +75,8 @@ function ErrorCreationModal({
 }
 
 function ContributeCafe() {
+    const navigate = useNavigate();
+
     const defaultDaySched = {
         isOpen: true,
         opening: '',
@@ -124,6 +127,9 @@ function ContributeCafe() {
 
     const { mutate, isError, reset, isPending } = useMutation({
         mutationFn: createCafe,
+        onSuccess: (data) => {
+            navigate(`/cafe/${data.id}`);
+        },
     });
 
     const onSubmitHandler = (data: CreateCafeInput) => {

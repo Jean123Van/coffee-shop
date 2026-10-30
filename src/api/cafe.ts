@@ -1,7 +1,7 @@
 import type { CreateCafeInput } from '@/schemas/CreateCafe.schema';
 import { authApiClient } from './apiClient';
 
-async function createCafe(data: CreateCafeInput): Promise<object> {
+async function createCafe(data: CreateCafeInput): Promise<{ id: number }> {
     const filteredImages = data.cafeImages.filter(
         (image): image is File => image !== undefined,
     );
