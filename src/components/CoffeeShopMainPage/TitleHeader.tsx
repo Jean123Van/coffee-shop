@@ -2,18 +2,18 @@ import { LuStar } from 'react-icons/lu';
 import { COLORS } from '../../theme/colors';
 
 interface TitleHeaderProps {
-    totalRating: string;
-    totalReviews: string;
+    // totalRating: string;
+    // totalReviews: string;
     address: string;
-    operatingHours: string;
+    // operatingHours: string;
     name: string;
 }
 
 function TitleHeader({
-    totalRating,
-    totalReviews,
+    // totalRating,
+    // totalReviews,
     address,
-    operatingHours,
+    // operatingHours,
     name,
 }: TitleHeaderProps) {
     return (
@@ -26,28 +26,28 @@ function TitleHeader({
         >
             <h1 className="text-[40px] font-bold mb-[7px]">{name}</h1>
             <div className="flex flex-row mb-[5px] gap-[8px] items-center">
-                <span
+                {/* <span
                     style={{
                         fontWeight: 'bold',
                         fontSize: '18px',
                     }}
                 >
                     {totalRating}
-                </span>
-                <div className="flex flex-row">
+                </span> */}
+                {/* <div className="flex flex-row">
                     <LuStar color={COLORS.brown} fill="gold" />
                     <LuStar color={COLORS.brown} fill="gold" />
                     <LuStar color={COLORS.brown} fill="gold" />
                     <LuStar color={COLORS.brown} fill="gold" />
-                </div>
-                <span
+                </div> */}
+                {/* <span
                     style={{
                         color: 'grey',
                         fontSize: '12px',
                     }}
                 >
                     ({totalReviews} reviews)
-                </span>
+                </span> */}
             </div>
             <span
                 style={{
@@ -58,14 +58,14 @@ function TitleHeader({
             >
                 {address}
             </span>
-            <span
+            {/* <span
                 style={{
                     fontSize: '14px',
                     color: 'rgba(57, 57, 57, 1)',
                 }}
             >
                 {operatingHours}
-            </span>
+            </span> */}
         </div>
     );
 }

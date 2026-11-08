@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import MainPageSectionContainer from '../Containers/MainPageSectionContainer/MainPageSectionContainer';
 import { COLORS } from '../../theme/colors';
 
-function About() {
+interface AboutProps {
+    content?: string;
+}
+
+function About({ content }: AboutProps) {
     const textRef = useRef<HTMLSpanElement>(null);
     const measureRef = useRef<HTMLSpanElement>(null);
 
@@ -48,12 +52,7 @@ function About() {
                         overflow: 'hidden',
                     }}
                 >
-                    Nestled in the heart of the neighborhood, this cozy coffee
-                    shop is known for its warm atmosphere, expertly crafted
-                    espresso, and freshly baked pastries. Whether you're
-                    stopping by for a quick morning pick-me-up or settling in
-                    for an afternoon of work, the welcoming staff and
-                    comfortable seating make it a favorite among locals.
+                    {content}
                 </span>
 
                 {/* Measurement element */}
@@ -71,12 +70,7 @@ function About() {
                         overflow: 'hidden',
                     }}
                 >
-                    Nestled in the heart of the neighborhood, this cozy coffee
-                    shop is known for its warm atmosphere, expertly crafted
-                    espresso, and freshly baked pastries. Whether you're
-                    stopping by for a quick morning pick-me-up or settling in
-                    for an afternoon of work, the welcoming staff and
-                    comfortable seating make it a favorite among locals.
+                    {content}
                 </span>
 
                 {isExpandable && (
