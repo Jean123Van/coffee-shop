@@ -21,18 +21,13 @@ import { useMutation } from '@tanstack/react-query';
 import { createCafe } from '@/api/cafe';
 import CenterModal from '@/components/Modal/CenterModal';
 import spilled_coffee from '@/assets/spilled_coffee.png';
-import coffee_mug from '@/assets/coffee_mug.png';
 import { useNavigate } from 'react-router-dom';
+import CoffeeMugPouring from '@/components/Animations/CoffeeMugPouring';
 
 function LoadingModal({ isActive }: { isActive: boolean }) {
     return (
         <CenterModal isActive={isActive}>
-            <img
-                src={coffee_mug}
-                width={70}
-                height={70}
-                className="animate-[pour_1.5s_ease-in_infinite] mb-[15px]!"
-            />
+            <CoffeeMugPouring />
             <h1 className="text-brown font-bold">Loading please wait</h1>
         </CenterModal>
     );

@@ -30,4 +30,10 @@ async function createCafe(data: CreateCafeInput): Promise<{ id: number }> {
     return axiosResponse.data;
 }
 
-export { createCafe };
+async function fetchCafeById(cafeId: string) {
+    const axiosResponse = await authApiClient.get(`/api/cafe/${cafeId}`);
+
+    return axiosResponse.data;
+}
+
+export { createCafe, fetchCafeById };
