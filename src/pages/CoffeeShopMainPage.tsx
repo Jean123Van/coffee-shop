@@ -9,8 +9,8 @@ import VirtualTour from '@/components/CoffeeShopMainPage/VirtualTour';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCafeById } from '@/api/cafe';
 import { useParams } from 'react-router-dom';
-import coffee_mug from '@/assets/coffee_mug.png';
 import CoffeeMugPouring from '@/components/Animations/CoffeeMugPouring';
+import { formatCafeSchedule } from '@/helpers/cafe/formatCafeSchedule';
 
 function HeaderTabs({
     name,
@@ -40,11 +40,17 @@ type AvailableTabs = 'overViewAndRatings' | 'virtualTour';
 function CoffeeShopMainPage() {
     const { id } = useParams();
 
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, error } = useQuery({
         queryKey: ['cafe', id],
         queryFn: () => fetchCafeById(id!),
         enabled: !!id,
     });
+
+    const schedule = useMemo(() => {
+        if (!data) return;
+
+        return formatCafeSchedule(data);
+    }, [data]);
 
     const [activeTab, setActiveTab] =
         useState<AvailableTabs>('overViewAndRatings');
@@ -66,6 +72,10 @@ function CoffeeShopMainPage() {
         );
     }
 
+    if (error && error?.response.status === 404) {
+        return <h1>Cafe does not exist</h1>;
+    }
+
     return (
         <>
             <ImageBanner
@@ -78,7 +88,7 @@ function CoffeeShopMainPage() {
                 // totalRating={totalRating}
                 // totalReviews={data.totalReviews}
                 address={data.location}
-                // operatingHours={data.operatingHours}
+                operatingHours={schedule || []}
                 name={data.cafeName}
             />
 

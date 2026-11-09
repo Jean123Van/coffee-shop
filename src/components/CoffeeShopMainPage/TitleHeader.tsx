@@ -5,7 +5,7 @@ interface TitleHeaderProps {
     // totalRating: string;
     // totalReviews: string;
     address: string;
-    // operatingHours: string;
+    operatingHours: string[];
     name: string;
 }
 
@@ -13,7 +13,7 @@ function TitleHeader({
     // totalRating,
     // totalReviews,
     address,
-    // operatingHours,
+    operatingHours,
     name,
 }: TitleHeaderProps) {
     return (
@@ -58,14 +58,17 @@ function TitleHeader({
             >
                 {address}
             </span>
-            {/* <span
-                style={{
-                    fontSize: '14px',
-                    color: 'rgba(57, 57, 57, 1)',
-                }}
-            >
-                {operatingHours}
-            </span> */}
+            {operatingHours.map((schedule, index) => (
+                <span
+                    key={index}
+                    style={{
+                        fontSize: '14px',
+                        color: 'rgba(57, 57, 57, 1)',
+                    }}
+                >
+                    {schedule}
+                </span>
+            ))}
         </div>
     );
 }

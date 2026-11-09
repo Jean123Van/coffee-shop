@@ -32,6 +32,7 @@ function ImageBanner({ images, coverImg }: ImageBannerProps) {
             >
                 {images.map((image, index, arr) => (
                     <div
+                        key={index}
                         style={{
                             width: '100px',
                             height: '100%',
