@@ -11,6 +11,8 @@ import { fetchCafeById } from '@/api/cafe';
 import { useParams } from 'react-router-dom';
 import CoffeeMugPouring from '@/components/Animations/CoffeeMugPouring';
 import { formatCafeSchedule } from '@/helpers/cafe/formatCafeSchedule';
+import type { Cafe } from '@/types/cafe';
+import type { AxiosError } from 'axios';
 
 function HeaderTabs({
     name,
@@ -40,7 +42,7 @@ type AvailableTabs = 'overViewAndRatings' | 'virtualTour';
 function CoffeeShopMainPage() {
     const { id } = useParams();
 
-    const { data, isLoading, error } = useQuery({
+    const { data, isLoading, error } = useQuery<Cafe, AxiosError>({
         queryKey: ['cafe', id],
         queryFn: () => fetchCafeById(id!),
         enabled: !!id,
@@ -72,50 +74,55 @@ function CoffeeShopMainPage() {
         );
     }
 
-    if (error && error?.response.status === 404) {
+    if (error && error?.response?.status === 404) {
         return <h1>Cafe does not exist</h1>;
     }
 
-    return (
-        <>
-            <ImageBanner
-                coverImg={
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZcxVRjFLT7uYkq_Ha9Ywk4_t-E5p5J0o0iSD4IHhLucGBZgcISjgzABI&s=10'
-                }
-                images={images}
-            />
-            <TitleHeader
-                // totalRating={totalRating}
-                // totalReviews={data.totalReviews}
-                address={data.location}
-                operatingHours={schedule || []}
-                name={data.cafeName}
-            />
-
-            <div className="border-b-1 mb-[15px]! flex flex-row gap-[20px] border-lightGray">
-                <HeaderTabs
-                    onClick={() => setActiveTab('overViewAndRatings')}
-                    isActive={activeTab === 'overViewAndRatings'}
-                    name="Overview & Ratings"
+    if (data) {
+        return (
+            <>
+                <ImageBanner
+                    coverImg={
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZcxVRjFLT7uYkq_Ha9Ywk4_t-E5p5J0o0iSD4IHhLucGBZgcISjgzABI&s=10'
+                    }
+                    images={images}
                 />
-                {/* <HeaderTabs
+                <TitleHeader
+                    // totalRating={totalRating}
+                    // totalReviews={data.totalReviews}
+                    address={data.location}
+                    operatingHours={schedule || []}
+                    name={data.cafeName}
+                />
+
+                <div className="border-b-1 mb-[15px]! flex flex-row gap-[20px] border-lightGray">
+                    <HeaderTabs
+                        onClick={() => setActiveTab('overViewAndRatings')}
+                        isActive={activeTab === 'overViewAndRatings'}
+                        name="Overview & Ratings"
+                    />
+                    {/* <HeaderTabs
                     onClick={() => setActiveTab('virtualTour')}
                     isActive={activeTab === 'virtualTour'}
                     name="3D Virtual Tour"
                 /> */}
-            </div>
+                </div>
 
-            {activeTab === 'overViewAndRatings' && (
-                <>
-                    {/* <Ratings ratings={data.ratings} totalRating={totalRating} /> */}
-                    {/* <Highlights /> */}
-                    <About content={data.aboutUs} />
-                </>
-            )}
+                {activeTab === 'overViewAndRatings' && (
+                    <>
+                        {/* <Ratings
+                            ratings={[{ title: 'bla', rating: '4' }]}
+                            totalRating={'5'}
+                        />
+                        <Highlights /> */}
+                        <About content={data.aboutUs} />
+                    </>
+                )}
 
-            {activeTab === 'virtualTour' && <VirtualTour />}
-        </>
-    );
+                {activeTab === 'virtualTour' && <VirtualTour />}
+            </>
+        );
+    }
 }
 
 export default CoffeeShopMainPage;
